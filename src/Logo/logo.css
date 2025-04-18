@@ -1,0 +1,8 @@
+#logo{
+  height: 50px;
+  width: 50px;
+}
+.logoName {
+    display: flex;
+    gap: 20px;
+}

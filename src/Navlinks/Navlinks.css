@@ -1,0 +1,25 @@
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .navbar a {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+  }
+  
+  .navbar a:hover {
+    color: #f0a500;
+  }
+
+.footerlinks ul{ 
+    display: flex;
+    flex-direction: column;
+    }
+
+.navlinks ul{ 
+        display: flex;
+        flex-direction: row;
+        }
