@@ -8,6 +8,9 @@ import { BrowserRouter, Routes, Route, } from 'react-router-dom'
 import MovieDetails from './pages/MovieDetails'
 import ThemeToggler from './ThemeToggler/ThemeToggler'
 import { ThemeContext, ThemeProvider } from './Context/ThemeContext'
+import Login from './pages/Login'
+import { AuthProvider } from './auth/AuthContext'
+import PrivateRoute from './auth/PrivateRoute'
 
 const moviesData = [
   {
@@ -62,40 +65,23 @@ function App() {
   // console.log(filterMovies,"ff");
   return (
 
-    <ThemeProvider>
+    <>
+      <NavBar />
+      <input type='text' placeholder='Search movies...' value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<Home searchTerm={searchTerm} />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/trending' element={
+            <PrivateRoute>
+              <Trending />
+            </PrivateRoute>
+          } />
+          <Route path='/movie-details/:id' element={<MovieDetails />} />
+        </Routes>
+      </Suspense>
 
-
-
-      <BrowserRouter>
-        <NavBar />
-        <input type='text' placeholder='Search movies...' value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} />
-        {/* <div>
-    {filterMovies.length > 0 ? (
-      filterMovies.map((movie)=>(
-        <div>
-        <h2> {movie.title}</h2>
-        <p>{movie.genre}</p>
-        </div>
-        
-        ))
-        ):(
-          <p> no movies found</p>
-          )}
-          </div> */}
-        {/* <ToggleTheme/> */}
-
-        <Suspense fallback={<div>Loading...</div>}>
-          <Routes>
-            <Route path="/" element={<Home searchTerm={searchTerm} />} />
-            <Route path='/trending' element={<Trending />} />
-            <Route path='/movie-details/:id' element={<MovieDetails />} />
-          </Routes>
-        </Suspense>
-        <Footer />
-      </BrowserRouter>
-    </ThemeProvider>
-
-
+    </>
   )
 }
 
